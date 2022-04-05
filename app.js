@@ -26,18 +26,27 @@ app.use(morgan('dev'));
 
 
 
+
 // register view engine
 app.set('view engine', 'ejs');
 // app.set('views', 'myviews');
 
 // main routes
 app.get('/', (req, res) => {
-  res.redirect('/blogs');
+  res.render('index', {title: 'Verdant Path' });
+  // res.redirect('/blogs');
 });
 
 app.get('/about', (req, res) => {
   res.render('about', { title: 'About' });
 });
+
+app.get('/epic-fail', (req, res) => {
+  process.nextTick(() => {
+    throw new Error('Kaboom!')
+  })
+  res.send('embarrased')
+})
 
 // blog routes
 app.use('/blogs', blogRoutes);
